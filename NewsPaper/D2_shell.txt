@@ -1,0 +1,5 @@
+(venv) PS C:\Users\zlatu\PycharmProjects\NewsPaper\NewsPaper> python manage.py shell
+(venv) PS C:\Users\zlatu\PycharmProjects\NewsPaper\NewsPaper> python manage.py shell
+>>> from news.models import *
+>>> u1 = User.objects.create_user(username='Zlata')
+>>> u2 = User.objects.create_user(username='Vladislav')
