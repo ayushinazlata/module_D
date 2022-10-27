@@ -41,7 +41,9 @@ class Post(models.Model):
     rating = models.SmallIntegerField(default=0)
 
     def preview(self):
-        return self.text[0:128] + '...'
+        if len(self.text) > 128:
+            return f'{self.text[0:128]}...'
+        return f'{self.text}'
 
     def like(self):
         self.rating += 1

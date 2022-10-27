@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/NewsPaper.iml" filepath="$PROJECT_DIR$/.idea/NewsPaper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../models_tutor/.idea/models_tutor.iml" filepath="$PROJECT_DIR$/../models_tutor/.idea/models_tutor.iml" />
+    </modules>
+  </component>
+</project>
