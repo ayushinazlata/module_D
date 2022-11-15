@@ -13,7 +13,13 @@ News
 {% block content %}
 <h1>◄ ALL PUBLICATIONS ►</h1>
 <h6><i>You see {{ news|length }} out of {{ paginator.count }} publications on our News Portal </i></h6>
+
 <hr>
+
+    {% if perms.news.add_post %}
+    <a href="{% url 'news_create' %}">Add new publication</a>
+    {% endif %}
+
 {% if news %}
     <table>
            <tr>
@@ -21,14 +27,28 @@ News
                <td>Title</td>
                <td>Date of publication</td>
                <td>Content</td>
+
+                {% if perms.news.change_post or perms.news.delete_post %}
+                <td>Actions</td>
+                {% endif %}
            </tr>
 
            {% for new in news %}
            <tr>
                <td>{{ new.get_publication_display }}</td>
-               <td>{{ new.title|censor }}</td>
+               <td>
+                   <a class="nav-link" href="{% url 'new_detail' new.id %}">{{ new.title }}</a>
+               </td>
                <td>{{ new.date_creation|date:'d M Y' }}</td>
                <td>{{ new.text|truncatewords:20|censor }}</td>
+               <td>
+                    {% if perms.news.change_post %}
+                    <a href="{% url 'new_edit' pk=new.id %}">Change</a>
+                    {% endif %}
+                    {% if perms.news.delete_post %}
+                    <a href="{% url 'new_delete' new.id %}">Delete</a>
+                    {% endif %}
+                </td>
            </tr>
            {% endfor %}
 

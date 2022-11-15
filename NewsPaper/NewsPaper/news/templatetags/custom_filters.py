@@ -6,7 +6,7 @@ register = template.Library()
 
 @register.filter()
 def censor(value):
-    bad_word = ['Искусство', 'мэр', 'геймеров', 'очко']
+    bad_word = ['погиб', 'мэр', 'спецоперация', 'жертва']
     for word in value.split():
         for i in bad_word:
             if i.lower() in word.lower().replace(',.:;/-\\""', ''):

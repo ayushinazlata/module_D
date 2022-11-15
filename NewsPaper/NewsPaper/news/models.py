@@ -71,6 +71,9 @@ class PostCategory(models.Model):
     post_through = models.ForeignKey(Post, on_delete=models.CASCADE)
     category_through = models.ForeignKey(Category, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.post_through}'
+
 
 class Comment(models.Model):
     comment_post = models.ForeignKey(Post, on_delete=models.CASCADE)
