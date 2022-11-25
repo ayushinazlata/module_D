@@ -18,9 +18,9 @@ from dotenv import load_dotenv, find_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-load_dotenv(find_dotenv())
-
-SECRET_KEY = os.environ.get("SECRET_KEY")
+# load_dotenv(find_dotenv())
+#
+# SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!

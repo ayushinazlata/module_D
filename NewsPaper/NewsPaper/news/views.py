@@ -45,21 +45,21 @@ class NewsSearch(ListView):
 
 
 class NewsCreate(PermissionRequiredMixin, CreateView):
-    permission_required = ('news.add_news',)
+    permission_required = ('news.add_post',)
     form_class = NewsForm
     model = Post
     template_name = 'new_edit.html'
 
 
 class NewsEdit(PermissionRequiredMixin, UpdateView):
-    permission_required = ('news.edit_news',)
+    permission_required = ('news.edit_post',)
     form_class = NewsForm
     model = Post
     template_name = 'new_edit.html'
 
 
 class NewsDelete(PermissionRequiredMixin, DeleteView):
-    permission_required = ('news.delete_news',)
+    permission_required = ('news.delete_post',)
     model = Post
     template_name = 'new_delete.html'
     success_url = reverse_lazy('news_list')
