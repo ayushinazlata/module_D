@@ -12,26 +12,21 @@ News
 
 {% block content %}
 <h1>◄ ALL PUBLICATIONS ►</h1>
-<h6><i>You see {{ news|length }} out of {{ paginator.count }} publications on our News Portal </i></h6>
-<hr>
-{% if is_author %}
-    <h5>You're the author</h5>
+<h6><i>You see {{ category_news|length }} out of {{ paginator.count }} publications on our News Portal </i></h6>
+
+    {% if is_not_subscriber %}
+    <p class="text-center"><a href="{% url 'subscribe' category.id %}" class="btn btn-secondary btn-sm">Subscribe</a></p>
     {% else %}
-    <p class="text-center"><a href="{% url 'account_upgrade' %}" class="btn btn-secondary btn-sm">Become an author</a></p>
+    <p class="text-center"><a href="{% url 'delete_subscribe' category.id %}" class="btn btn-secondary btn-sm">Unubscribe</a></p>
     {% endif %}
 
-{% if not posts_limit %}
-<h6>Available limit {{ count }} of {{ limit }} publication</h6>
-    <p class="text-center"><a href="{% url 'news_create' %}" class="btn btn-secondary btn-sm">Add new publication</a></p>
-{% else %}
-    <h2>You have used up your publication limit. Try to create later</h2>
-{% endif %}
+<hr>
 
-{% if perms.news.add_post %}
+    {% if perms.news.add_post %}
+    <a href="{% url 'news_create' %}">Add new publication</a>
+    {% endif %}
 
-{% endif %}
-
-{% if news %}
+{% if category_news %}
     <table>
            <tr>
                <td>Type of publication</td>
@@ -45,7 +40,7 @@ News
                 {% endif %}
            </tr>
 
-           {% for new in news %}
+           {% for new in category_news %}
            <tr>
                <td>{{ new.get_publication_display }}</td>
                <td>
@@ -55,7 +50,7 @@ News
                <td>{{ new.text|truncatewords:20|censor }}</td>
                <td>{% for category in new.post_category.all %}
                    <a href="{% url 'category_news' category.id %}">{{ category }}</a>
-                   {% endfor %}
+                    {% endfor %}
                    <td>
                <td>
                     {% if perms.news.change_post %}
