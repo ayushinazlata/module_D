@@ -2,3 +2,4 @@ venv/
 NewsPaper/NewsPaper/.env
 NewsPaper/NewsPaper/celerybeat-schedule
 virtualenv/
+cache_files/
