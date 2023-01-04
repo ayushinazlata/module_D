@@ -45,7 +45,7 @@ class NewDetail(DetailView):
     context_object_name = 'new'
     queryset = Post.objects.all()
 
-    def get_object(self, *args, **kwargs): # переопределяем метод получения объекта
+    def get_object(self, *args, **kwargs):  # переопределяем метод получения объекта
         obj = cache.get(f'post-{self.kwargs["pk"]}', None)  # кэш похож на словарь и метод get действует также
         # Он забирает значение по ключу, если его нет, то забирает None
 
@@ -120,7 +120,7 @@ class CategoryList(ListView):
 
 
 @login_required
-def subscribe(request, pk): # Подписка
+def subscribe(request, pk):  # Подписка
     user = request.user
     category = Category.objects.get(id=pk)
     category.subscribers.add(user)

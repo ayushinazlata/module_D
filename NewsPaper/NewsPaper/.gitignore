@@ -1,0 +1,5 @@
+venv/
+virtualenv/
+.env
+cache_files/
+celerybeat-schedule

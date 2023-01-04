@@ -49,7 +49,8 @@ def notify_weekly():
     last_week = today - timedelta(days=7)
     posts = Post.objects.filter(date_creation__gte=last_week)
     categories = set(posts.values_list('post_category__name_category', flat=True))
-    subscribers = set(Category.objects.filter(name_category__in=categories).values_list('subscribers__email', flat=True))
+    subscribers = set(Category.objects.filter(name_category__in=categories).values_list('subscribers__email',
+                                                                                        flat=True))
 
     html_content = render_to_string(
         'daily_post.html',

@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import (NewsList, NewDetail, NewsSearch, NewsCreate, NewsEdit, NewsDelete, CategoryList, subscribe,
+from .views import (NewsList, NewDetail, NewsSearch, NewsCreate,
+                    NewsEdit, NewsDelete, CategoryList, subscribe,
                     delete_subscribe, upgrade_user)
 from django.views.decorators.cache import cache_page
 

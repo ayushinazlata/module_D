@@ -1,5 +1,5 @@
-from django_filters import FilterSet, ModelChoiceFilter, DateFilter, ChoiceFilter
-from .models import Post, Category, PostCategory
+from django_filters import FilterSet, ModelChoiceFilter, DateFilter
+from .models import Post, Category
 from django.forms import DateInput
 
 
@@ -26,11 +26,3 @@ class PostFilter(FilterSet):
         fields = {
             'title': ['icontains'],
         }
-
-
-# class CategoryForm(FilterSet):
-#     post_category = ChoiceFilter(choices=PostCategory.objects.all())
-#
-#     class Meta:
-#         model = Post
-#         fields = ['post_category']

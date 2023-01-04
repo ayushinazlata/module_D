@@ -19,4 +19,3 @@ class NewsForm(forms.ModelForm):
                 "Название должно начинаться с заглавной буквы"
             )
         return title
-

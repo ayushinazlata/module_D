@@ -1,0 +1,6 @@
+Django
+django-filter
+django-apscheduler
+django-allauth
+celery
+python-dotenv

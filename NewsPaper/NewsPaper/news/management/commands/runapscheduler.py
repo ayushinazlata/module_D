@@ -23,7 +23,8 @@ def my_job():
     last_week = today - timedelta(days=7)
     posts = Post.objects.filter(date_creation__gte=last_week)
     categories = set(posts.values_list('post_category__name_category', flat=True))
-    subscribers = set(Category.objects.filter(name_category__in=categories).values_list('subscribers__email', flat=True))
+    subscribers = set(Category.objects.filter(name_category__in=categories).values_list('subscribers__email',
+                                                                                        flat=True))
 
     html_content = render_to_string(
         'daily_post.html',
@@ -45,7 +46,8 @@ def my_job():
 
 # функция, которая будет удалять неактуальные задачи
 def delete_old_job_executions(max_age=604_800):
-    """This job deletes all apscheduler job executions older than `max_age` from the database."""
+    """This job deletes all apscheduler job executions older than
+    `max_age` from the database."""
     DjangoJobExecution.objects.delete_old_job_executions(max_age)
 
 
@@ -60,7 +62,7 @@ class Command(BaseCommand):
         scheduler.add_job(
             my_job,
             trigger=CronTrigger(day_of_week="mon", hour="00", minute="00"),
-            # То же, что и интервал, но задача тригера таким образом более понятна django
+            # То же,что и интервал,но задача тригера более понятна django
             id="my_job",  # уникальный айди
             max_instances=1,
             replace_existing=True,
@@ -72,7 +74,8 @@ class Command(BaseCommand):
             trigger=CronTrigger(
                 day_of_week="mon", hour="01", minute="00"
             ),
-            # Каждую неделю будут удаляться старые задачи, которые либо не удалось выполнить, либо уже выполнять не надо.
+            # Каждую неделю будут удаляться старые задачи,
+            # которые либо не удалось выполнить, либо выполнять не надо.
             id="delete_old_job_executions",
             max_instances=1,
             replace_existing=True,

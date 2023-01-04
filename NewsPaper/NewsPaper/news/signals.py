@@ -19,6 +19,3 @@ def notify_about_new_post(sender, instance, **kwargs):
                     (instance.preview(), instance.pk, instance.title, subscribers, instance.id),
                     countdown=10
             )
-
-
-
