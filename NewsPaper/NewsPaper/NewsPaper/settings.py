@@ -25,6 +25,121 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console_debug_format': {
+            'format': '%(asctime)s - %(levelname)s - %(message)s'
+        },
+        'console_warning_format': {
+            'format': '%(asctime)s - %(levelname)s - %(message)s - %(pathname)s'
+        },
+        'console_error_format': {
+            'format': '%(asctime)s - %(levelname)s - %(message)s - %(pathname)s - %(exc_info)s'
+        },
+        'gen_file': {
+            'format': '%(asctime)s - %(levelname)s -%(module)s - %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'console_debug_format',
+        },
+        'console_warning': {
+            'level': 'WARNING',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'console_warning_format',
+        },
+        'console_error': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'console_error_format',
+        },
+        'gen_file': {
+            'level': 'INFO',
+            'filters': ['require_debug_false'],
+            'class': 'logging.FileHandler',
+            'formatter': 'gen_file',
+            'filename': 'general.log',
+        },
+        'err_file': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.FileHandler',
+            'formatter': 'console_error_format',
+            'filename': 'errors.log'
+        },
+        'sec_log': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.FileHandler',
+            'formatter': 'gen_file',
+            'filename': 'security.log',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'gen_file',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'console_warning', 'console_error', 'gen_file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.request': {
+            'for_mail': {
+                'handlers': ['mail_admins'],
+                'level': 'ERROR',
+                'propagate': False,
+            },
+            'for_err': {
+                'handlers': ['err_file'],
+                'level': 'ERROR',
+            },
+        },
+        'django.server': {
+            'for_mail': {
+                'handlers': ['mail_admins'],
+                'level': 'ERROR',
+                'propagate': False,
+            },
+            'for_err': {
+                'handlers': ['err_file'],
+                'level': 'ERROR',
+            },
+        },
+        'django.template': {
+            'handlers': ['err_file'],
+            'level': 'ERROR',
+        },
+        'django.db.backends': {
+            'handlers': ['err_file'],
+            'level': 'ERROR',
+        },
+        'django.security': {
+            'handlers': ['sec_log'],
+            'level': 'INFO',
+        },
+    },
+}
+
 ALLOWED_HOSTS = []
 
 
@@ -92,9 +207,13 @@ AUTHENTICATION_BACKENDS = [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': str(os.getenv('PASSWORD')),
+        'HOST': 'localhost',
+        'PORT': '5432',
+    },
 }
 
 
